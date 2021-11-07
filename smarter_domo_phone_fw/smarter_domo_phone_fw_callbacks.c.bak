@@ -1,0 +1,96 @@
+// This callback file is created for your convenience. You may add application
+// code to this file. If you regenerate this file over a previous version, the
+// previous version will be overwritten and any code you have added will be
+// lost.
+
+#include "app/framework/include/af.h"
+#include "hal/hal.h"
+#include EMBER_AF_API_NETWORK_STEERING
+#include "app/framework/include/af.h"
+#include "app/util/ezsp/ezsp-enum.h"
+
+
+
+
+/** @brief Main Tick
+ *
+ * Whenever main application tick is called, this callback will be called at the
+ * end of the main tick execution.
+ *
+ */
+void emberAfMainTickCallback(void)
+{
+}
+
+/** @brief Called when Button 1 is pressed long
+ *
+ * @param timePressedMs Amount of time button 1 was pressed.
+ * @param pressedAtReset Was the button pressed at startup.
+ */
+void emberAfPluginButtonInterfaceButton1PressedLongCallback(uint16_t timePressedMs,
+                                                            bool pressedAtReset)
+{
+}
+
+/** @brief Called when Button 0 is pressed long
+ *
+ * @param timePressedMs Amount of time button 0 was pressed.
+ * @param pressedAtReset Was the button pressed at startup.
+ */
+void emberAfPluginButtonInterfaceButton0PressedLongCallback(uint16_t timePressedMs,
+                                                            bool pressedAtReset)
+{
+}
+
+/** @brief Called when Button 0 is pressed short
+ *
+ * @param timePressedMs Time (in ms) button 0 was pressed short
+ */
+void emberAfPluginButtonInterfaceButton0PressedShortCallback(uint16_t timePressedMs)
+{
+}
+
+/** @brief On/off Cluster On
+ *
+ * 
+ *
+ */
+boolean emberAfOnOffClusterOnCallback(void)
+{
+  return FALSE;
+}
+
+/** @brief On/off Cluster Off
+ *
+ * 
+ *
+ */
+boolean emberAfOnOffClusterOffCallback(void)
+{
+  return FALSE;
+}
+
+/** @brief On/off Cluster Toggle
+ *
+ * 
+ *
+ */
+boolean emberAfOnOffClusterToggleCallback(void)
+{
+  return FALSE;
+}
+
+/** @brief IAS Zone Cluster Zone Enroll Response
+ *
+ * 
+ *
+ * @param enrollResponseCode   Ver.: always
+ * @param zoneId   Ver.: always
+ */
+boolean emberAfIasZoneClusterZoneEnrollResponseCallback(int8u enrollResponseCode,
+                                                        int8u zoneId)
+{
+  return FALSE;
+}
+
+

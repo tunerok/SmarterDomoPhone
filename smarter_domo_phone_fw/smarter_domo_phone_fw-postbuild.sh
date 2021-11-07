@@ -1,0 +1,1 @@
+"$4/developer/adapter_packs/python/bin/python3"  "$(dirname "$0")/smarter_domo_phone_fw-postbuild.py" "$1" "$2" "" "$4/../../../../../usr/bin/wine-stable cmd /C " "$3"
