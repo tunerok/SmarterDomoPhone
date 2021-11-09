@@ -169,14 +169,18 @@ void emberAfPluginButtonInterfaceButton0PressedShortCallback(uint16_t timePresse
   //take phone
   if (!phone_status){
       set_phone_status(1);
-      emberAfPluginIasZoneServerUpdateZoneStatus(1,0,1);
+    
+     //ias debug
+      //emberAfPluginIasZoneServerUpdateZoneStatus(1,0,1);
 
   }
   //else
     //put phone
   else{
       set_phone_status(0);
-      emberAfPluginIasZoneServerUpdateZoneStatus(1,1,1);
+    
+    //ias debug
+      //emberAfPluginIasZoneServerUpdateZoneStatus(1,1,1);
   }
 
 
