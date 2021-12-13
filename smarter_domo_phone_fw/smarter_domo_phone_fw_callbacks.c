@@ -13,7 +13,8 @@
 #define IN_CALL_DELAY 1000
 
 uint8_t n_joined  = 0;
-
+uint16_t adc_data = 3000;
+uint8_t current_percentage = 0;
 uint8_t phone_status = 0;
 uint8_t s_sound_status = 0;
 
@@ -79,11 +80,30 @@ void set_sound_status(uint8_t st){
 //open door button simulation
 void set_key_status(uint8_t st){
   if (st){
+      GPIO_PinModeSet(gpioPortI, 3, gpioModePushPull, 1);
+      GPIO_PinModeSet(gpioPortJ, 14, gpioModePushPull, 1);
+      GPIO_PinModeSet(gpioPortD, 11, gpioModePushPull, 1);
       GPIO_PinModeSet(Open_pin_PORT, Open_pin_PIN, gpioModePushPull, 1);
   }
   else{
+      GPIO_PinModeSet(gpioPortI, 3, gpioModePushPull, 1);
+      GPIO_PinModeSet(gpioPortJ, 14, gpioModePushPull, 1);
+      GPIO_PinModeSet(gpioPortD, 11, gpioModePushPull, 0);
       GPIO_PinModeSet(Open_pin_PORT, Open_pin_PIN, gpioModePushPull, 0);
   }
+}
+
+
+void battarey_life_upd(void){
+  //cannot get access to ADC GPIO input - too much sensors on board
+  //so i used adc_data that can be changed to data from adc when you can get access
+  //to ADC port
+  current_percentage = (100*adc_data)/4095; //12 bit
+
+  emberAfWriteServerAttribute(1, ZCL_POWER_CONFIG_CLUSTER_ID,
+                                               ZCL_BATTERY_PERCENTAGE_REMAINING_ATTRIBUTE_ID,
+                                               &current_percentage,
+                                               ZCL_INT8U_ATTRIBUTE_TYPE);
 }
 //************************************************************//
 
@@ -97,19 +117,16 @@ void set_key_status(uint8_t st){
 
 void emberAfMainTickCallback(void)//TODO:
 {
+  battarey_life_upd();
   t_ticks++;
 
   if (!GPIO_PinInGet(Incoming_call_pin_PORT, Incoming_call_pin_PIN)){
-          GPIO_PinModeSet(gpioPortI, 3, gpioModePushPull, 1);
-          GPIO_PinModeSet(gpioPortJ, 14, gpioModePushPull, 1);
-          GPIO_PinModeSet(gpioPortD, 11, gpioModePushPull, 1);
           //call isa
           emberAfPluginIasZoneServerUpdateZoneStatus(1,1,1);
 
   }
   else
     {
-      GPIO_PinModeSet(gpioPortD, 11, gpioModePushPull, 0);
       emberAfPluginIasZoneServerUpdateZoneStatus(1,0,1);
     }
 }
